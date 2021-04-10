@@ -21,10 +21,9 @@ public class CPArrow : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        
-       lookie.position = lookieLous[whichCP].position;
-       transform.LookAt(lookie);
-       transform.position = arrowGoHere.position;
-
+        var dir = (lookieLous[whichCP].position - transform.position).normalized;
+        var lookRot = Quaternion.LookRotation(dir) * Quaternion.AngleAxis(270, Vector3.up);
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRot, Time.deltaTime * 180);
+        transform.position = arrowGoHere.position;
     }
 }
